@@ -25,7 +25,6 @@ RSpec.describe User do
       expect(ldap).to have_received(:find).with('foo')
     end
 
-
     context '#email' do
       let(:ldap_record) { nil }
 
@@ -48,6 +47,28 @@ RSpec.describe User do
 
         it 'returns false' do
           expect(subject.email).to eq(nil)
+        end
+      end
+    end
+
+    context 'in_ad?' do
+      let(:ldap_record) { spy() }
+      let(:status) { true }
+      before do
+        subject.instance_variable_set(:@ldap_record, ldap_record)
+        allow(ldap).to receive(:active?).with(ldap_record).and_return(status)
+      end
+
+      context 'when active' do
+        it 'returns true' do
+          expect(subject.in_ad?).to eq(true)
+        end
+      end
+
+      context 'when false' do
+        let(:status) { false }
+        it 'returns false' do
+          expect(subject.in_ad?).to eq(false)
         end
       end
     end
