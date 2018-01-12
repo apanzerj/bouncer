@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require "irb"
+require "irb/completion" # easy tab completion
+
+%w(github_users.rb namely_db.rb ldap_wrapper.rb user.rb).each{ |file| require_relative "../models/#{file}" }
+require 'dotenv'
+Dotenv.load!
+
+IRB.start
