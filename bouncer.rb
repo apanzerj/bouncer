@@ -28,7 +28,7 @@ GithubUsers.all.each do |user|
 end
 
 
-CSV.open ("namely_export_#{Time.now.utc.to_i}.csv", 'w') do |csv|
+CSV.open("namely_export_#{Time.now.utc.to_i}.csv", 'w') do |csv|
   csv << %w(Status GithubID GithubAdmin Team Email)
   @valid.each do |valid|
     csv << valid

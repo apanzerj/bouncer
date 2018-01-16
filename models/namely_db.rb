@@ -9,7 +9,7 @@ class NamelyDB
     CSV.open("namely_export_#{Time.now.utc.to_i}.csv", 'w') do |file_out|
       self.new.data.each do |m|
         next if m.user_status != 'active'
-        file_out << [m.github_id_adept_only, m.email, m.team]
+        file_out << [m.github_id_adept_only, m.email, m.team, "https://github.com/#{m.github_id_adept_only}"]
       end
     end
   end

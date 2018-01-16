@@ -12,7 +12,7 @@ class LdapWrapper
   PERSON = Net::LDAP::Filter.from_rfc2254('(objectClass=Person)')
 
   def initialize
-    @ldap = Net::LDAP.new( :host => "USSC1SV-01DC.ad.optimizely.net", :port => "636", :encryption => :simple_tls, :base => BASE, :auth => { :method => :simple, :username => ENV.fetch('AD_USER'), :password => ENV.fetch('AD_PASS') } )
+    @ldap = Net::LDAP.new(:host => "USSC1SV-01DC.ad.optimizely.net", :port => "636", :encryption => :simple_tls, :base => BASE, :auth => { :method => :simple, :username => ENV.fetch('AD_USER'), :password => ENV.fetch('AD_PASS') })
   end
 
   def find(githubid)
