@@ -27,13 +27,35 @@ GithubUsers.all.each do |user|
   end
 end
 
-
-CSV.open("namely_export_#{Time.now.utc.to_i}.csv", 'w') do |csv|
+generated_file = "bouncer_#{Time.now.utc.to_i}.csv"
+CSV.open(generated_file, 'w') do |csv|
   csv << %w(Status GithubID GithubAdmin Team Email)
-  @valid.each do |valid|
-    csv << valid
-  end
   @invalid_upn.each do |invalid_upn|
     csv << invalid_upn
   end
+  @valid.each do |valid|
+    csv << valid
+  end
 end
+
+require 'sendgrid-ruby'
+include SendGrid
+
+m = Mail.new
+m.from = Email.new(email: 'release_user@optimizely.com')
+m.subject = "Github Audit: #{Time.now.utc}"
+m_p = Personalization.new
+m_p.add_to(Email.new(email: 'itsdtickets@optimizely.com', name: 'IT Service Desk'))
+m.add_personalization(m_p)
+m.add_content(Content.new(type: 'text/plain', value: "Please see the attached report."))
+attachment = Attachment.new
+attachment.content = Base64.urlsafe_encode64(File.read(generated_file))
+attachment.type = 'text/plain'
+attachment.filename = generated_file
+attachment.disposition = 'attachment'
+attachment.content_id = 'report'
+m.add_attachment(attachment)
+
+sg = SendGrid::API.new(api_key: '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', host: 'https://api.sendgrid.com')
+response = sg.client.mail._('send').post(request_body: m.to_json)
+pp response

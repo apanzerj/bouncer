@@ -9,6 +9,6 @@ gem 'octokit'
 gem 'namely'
 gem 'dotenv'
 gem 'net-ldap'
-
+gem 'sendgrid-ruby'
 gem 'webmock'
 gem 'rspec'
