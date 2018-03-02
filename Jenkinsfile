@@ -26,4 +26,10 @@ pipeline {
       }
     }
   }
+
+  post {
+    success {
+      archiveArtifacts '*.csv'
+    }
+  }
 }
