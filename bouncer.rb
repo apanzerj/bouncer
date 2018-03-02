@@ -58,4 +58,3 @@ m.add_attachment(attachment)
 
 sg = SendGrid::API.new(api_key: ENV['SENDGRID_KEY'], host: 'https://api.sendgrid.com')
 response = sg.client.mail._('send').post(request_body: m.to_json)
-puts response.inspect
