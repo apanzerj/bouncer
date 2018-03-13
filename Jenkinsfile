@@ -3,21 +3,15 @@ pipeline {
   environment {
     PATH = "/home/jenkins/.rbenv/bin:/home/jenkins/.rbenv/shims:$PATH"
   }
-  parameters {
-    string(name: "PISTACHIO_BUCKET", defaultValue: 'optimizely-pci-pistachio')
-    string(name: "PISTACHIO_PATH", defaultValue: 'github-namely')
-  }
-
   stages {
     stage('Prepare') {
       steps {
-        sh "PISTACHIO_BUCKET=${params.PISTACHIO_BUCKET} PISTACHIO_PATH=${params.PISTACHIO_PATH} trailmix github sendgrid ad -f env-file > .env"
+        sh "trailmix --ssm-context github-namely --ssm-region us-west-2 -f env-file ad gh sendgrid > .env"
         sh '''
           bundle install
         '''
       }
     }
-
     stage('Run') {
       steps {
         sh '''
@@ -26,7 +20,6 @@ pipeline {
       }
     }
   }
-
   post {
     success {
       archiveArtifacts '*.csv'
