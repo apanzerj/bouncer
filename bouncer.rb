@@ -42,13 +42,12 @@ require 'sendgrid-ruby'
 include SendGrid
 
 m = Mail.new
-m.from = Email.new(email: 'release_user@track.optimizely.com')
+m.from = Email.new(email: 'release_user@optimizely.com')
 m.subject = "Github Audit: #{Time.now.utc}"
 m_p = Personalization.new
-m_p.add_to(Email.new(email: 'adam.panzer@optimizely.com', name: 'IT Service Desk'))
-#m_p.add_to(Email.new(email: 'itsdtickets@optimizely.com', name: 'IT Service Desk'))
+m_p.add_to(Email.new(email: 'itsdtickets@optimizely.com', name: 'IT Service Desk'))
 m.add_personalization(m_p)
-m.add_content(Content.new(type: 'text/html', value: "Please see the attached report.<a href='https://foo.com'> adam </a>"))
+m.add_content(Content.new(type: 'text/plain', value: "Please see the attached report."))
 attachment = Attachment.new
 attachment.content = Base64.urlsafe_encode64(File.read(generated_file))
 attachment.type = 'text/plain'
