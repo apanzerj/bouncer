@@ -5,7 +5,7 @@ Dotenv.load!
 require 'csv'
 require 'octokit'
 
-SERVICE_ACCOUNT = %w(ci-optimizely houndci-bot opti-pci-jenkins optibot optibot-cd optibot-ci optimizely-namely optimizely-phabricator).freeze
+SERVICE_ACCOUNT = %w(ci-optimizely houndci-bot opti-pci-jenkins optibot optibot-cd optibot-ci optimizely-namely optimizely-phabricator optimizely-codereview-bot).freeze
 
 
 Octokit.auto_paginate = true
