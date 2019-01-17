@@ -9,6 +9,7 @@ pipeline {
         sh "trailmix --ssm-context github-namely --ssm-region us-west-2 -f env-file ad gh sendgrid > .env"
         sh '''
           gem install bundler
+          rbenv rehash
           bundle install
         '''
       }

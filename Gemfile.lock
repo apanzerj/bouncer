@@ -80,5 +80,3 @@ DEPENDENCIES
   sendgrid-ruby
   webmock
 
-BUNDLED WITH
-   1.16.6
