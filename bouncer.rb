@@ -1,13 +1,9 @@
 %w(github_users.rb namely_db.rb ldap_wrapper.rb user.rb).each{ |file| require_relative "./models/#{file}" }
-require 'dotenv'
-Dotenv.load!
-
 require 'csv'
 require 'octokit'
 
-SERVICE_ACCOUNT = %w(ci-optimizely houndci-bot opti-pci-jenkins optibot optibot-cd optibot-ci optimizely-namely optimizely-phabricator optimizely-codereview-bot).freeze
-
-
+SERVICE_ACCOUNT = %()
+  
 Octokit.auto_paginate = true
 exit 1 if ENV.fetch('GH_ACCESS_TOKEN').nil?
 
