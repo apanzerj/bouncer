@@ -1,0 +1,22 @@
+version: 2
+updates:
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "13:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: webmock
+    versions:
+    - 3.11.1
+    - 3.11.2
+    - 3.11.3
+    - 3.12.0
+    - 3.12.1
+  - dependency-name: sendgrid-ruby
+    versions:
+    - 6.3.9
+  - dependency-name: octokit
+    versions:
+    - 4.20.0
